@@ -8,6 +8,7 @@ tasks and grades the generated stylesheets by rendering them in Chromium.
 
 For each case the model receives:
 
+- An 800×600 reference screenshot.
 - A natural-language visual specification.
 - The complete, immutable HTML fixture.
 - The exact required CSS filename.
@@ -18,6 +19,10 @@ embed an image, or load a network resource.
 Each page is rendered at `800 × 600` CSS pixels with device scale factor `1`.
 The reference and candidate screenshots are compared by mean per-channel pixel
 difference. Horizontal or vertical overflow applies an additional penalty.
+
+Each case directory includes a pinned `reference.png`, and its manifest entry
+contains a `reference_image` path. The runner sends that screenshot to the
+vision-language model along with the specification and HTML.
 
 ## Run in Google Colab
 

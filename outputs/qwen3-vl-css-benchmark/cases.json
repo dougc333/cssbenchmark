@@ -3,60 +3,70 @@
     "id": "01-primary-button",
     "title": "Primary button",
     "css_filename": "button.css",
+    "reference_image": "cases/01-primary-button/reference.png",
     "description": "Render the page at exactly 800×600 CSS pixels with devicePixelRatio 1. Remove all default page margins and apply border-box sizing to every element and pseudo-element. The body background is #f3f4f6 and the fallback font is Arial, sans-serif. The .stage element must fill the entire viewport and center the button both horizontally and vertically. Apply all button appearance and sizing through CSS and remove the browser's default button appearance. The button must be exactly 160px wide and 48px high, including border and padding. Give it zero padding, no border, a 10px radius, a solid #2563eb background, and shadow 0 6px 14px rgba(37, 99, 235, 0.24). Its text is #ffffff, Arial with sans-serif fallback, 16px, weight 700, and line-height 1. Center the text horizontally and vertically using flexbox and use cursor: pointer. On hover, change the background to #1d4ed8. On focus-visible, show a 3px solid #93c5fd outline with a 3px offset. Do not use external fonts, images, JavaScript, transforms, transitions, or animations."
   },
   {
     "id": "02-text-input",
     "title": "Text input",
     "css_filename": "textbox.css",
+    "reference_image": "cases/02-text-input/reference.png",
     "description": "Center a 360px-wide form field on an 800×600 #f8fafc page. Stack the label, input, and helper text with 8px spacing. Use Arial. The label is 14px, weight 700, and #1e293b. The input must use border-box sizing, be 44px high, have 12px horizontal padding, a 1px #cbd5e1 border, white background, 8px radius, and 16px text. Focus changes the border to #2563eb and adds a 3px rgba(37,99,235,.18) ring. Helper text is 12px and #64748b."
   },
   {
     "id": "03-profile-card",
     "title": "Profile card",
     "css_filename": "profile-card.css",
+    "reference_image": "cases/03-profile-card/reference.png",
     "description": "Center a 320px-wide white profile card on an #eef2ff page. Use Arial. Give the card 28px padding, 18px rounded corners, centered text, and a soft shadow. The avatar is a 72px circle with #4f46e5 background and centered white 24px bold initials. The name is 24px #111827 with 18px top and 6px bottom margin. The role is 14px #6b7280. The Follow button spans the card width, is 42px high, #4f46e5 with white bold text, no border, and 9px radius."
   },
   {
     "id": "04-header-nav",
     "title": "Header navigation",
     "css_filename": "header.css",
+    "reference_image": "cases/04-header-nav/reference.png",
     "description": "Build a horizontal header that is 72px high and spans the 800px page. Use Arial, white background, and a 1px #e5e7eb bottom border. Its content has 32px horizontal padding. Put the 'Northstar' brand at the left in 22px bold #111827. Put the navigation links in the middle with 28px gaps and 14px #4b5563 text; the active link is #2563eb and bold. Put a 96×38px dark #111827 button at the right with white text and an 8px radius. Vertically center all content."
   },
   {
     "id": "05-sidebar-nav",
     "title": "Sidebar navigation",
     "css_filename": "sidebar.css",
+    "reference_image": "cases/05-sidebar-nav/reference.png",
     "description": "Create a 220px-wide, full-600px-height sidebar on the left of an #f8fafc page. Use Arial. The sidebar is #111827 with 24px padding using border-box sizing. The white 20px bold logo appears at the top. Navigation begins 36px below and has 10px gaps. Each link is a 44px-high flex row with 12px horizontal padding, 10px radius, and #cbd5e1 text. The active item has #2563eb background and white bold text. Keep the small user block pinned to the bottom; its avatar is a 36px #f59e0b circle."
   },
   {
     "id": "06-feature-grid",
     "title": "Three-card feature grid",
     "css_filename": "feature-cards.css",
+    "reference_image": "cases/06-feature-grid/reference.png",
     "description": "Create a feature section on a white 800×600 page using Arial. The section has 48px horizontal and 70px vertical padding using border-box sizing. Center the 30px #111827 heading and 15px #6b7280 subtitle. Place three equal cards in one row 34px below with 18px gaps. Each card is 216px high with 22px padding, a 1px #e5e7eb border, 14px radius, and a subtle shadow. Icon tiles are 42px squares with 10px radius and #dbeafe background; headings are 18px and body text is 14px with 1.5 line-height."
   },
   {
     "id": "07-sign-in",
     "title": "Sign-in panel",
     "css_filename": "signin.css",
+    "reference_image": "cases/07-sign-in/reference.png",
     "description": "Center a 360px-wide sign-in panel on a #f1f5f9 800×600 page. Use Arial. The white panel has 32px padding, border-box sizing, 16px corners, and a medium shadow. Center the 26px heading and muted subtitle. Form groups are stacked with 18px gaps. Labels are 13px bold #334155. Inputs are 44px high, full width, with 12px padding, 1px #cbd5e1 borders and 8px corners. The submit button is full width, 46px high, #0f172a, white bold text, no border and 8px corners. The final help text is centered, 13px #64748b."
   },
   {
     "id": "08-hero",
     "title": "Hero section",
     "css_filename": "hero.css",
+    "reference_image": "cases/08-hero/reference.png",
     "description": "Create an 800×600 SaaS hero using Arial with a #eff6ff background. Center all content in a column. Add a small pill reading 'NEW RELEASE' with #dbeafe background, #1d4ed8 12px bold text, 22px horizontal padding, 28px height and fully rounded corners. The heading is 52px, weight 800, #0f172a, 1.05 line-height, max-width 650px, centered. The paragraph is 18px #475569, max-width 560px, 1.6 line-height. Place two 150×46px buttons in a row with 12px gap: a blue primary and white bordered secondary."
   },
   {
     "id": "09-footer",
     "title": "Footer",
     "css_filename": "footer.css",
+    "reference_image": "cases/09-footer/reference.png",
     "description": "Create a footer pinned to the bottom of an 800×600 #f8fafc page. The footer is 180px high, #0f172a, and uses Arial with 36px horizontal padding. Its top row places the white 20px bold 'Acme' brand on the left and four #cbd5e1 14px links on the right with 24px gaps. A #334155 divider spans the width below. The bottom row has 12px #94a3b8 copyright text on the left and three 30px circular #1e293b social buttons on the right. Vertically distribute the two rows evenly."
   },
   {
     "id": "10-dashboard",
     "title": "Dashboard shell",
     "css_filename": "dashboard.css",
+    "reference_image": "cases/10-dashboard/reference.png",
     "description": "Style an 800×600 analytics dashboard using Arial. Use a 190px-wide #0f172a sidebar and a #f8fafc main area. The sidebar has 22px padding, a white bold logo, and stacked 42px navigation items; the active item uses #2563eb. The main area has 28px padding. Its header places a 28px #0f172a heading left and a 40px circular #f59e0b avatar right. Below, show three equal 126px-high white statistic cards in a row with 16px gaps, 16px radius, and subtle borders/shadows. Finish with a 250px-high white activity panel with 18px radius; its four horizontal bars use #dbeafe tracks and progressively shorter #2563eb fills."
   }
 ]

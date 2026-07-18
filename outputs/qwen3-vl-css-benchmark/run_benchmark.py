@@ -38,6 +38,7 @@ Rules:
 - Do not use JavaScript, data URLs, external images, @import, or network fonts.
 - The viewport is exactly 800px by 600px with devicePixelRatio 1.
 - Avoid horizontal and vertical overflow.
+- Use the attached reference screenshot as the exact visual target.
 
 VISUAL SPECIFICATION
 {case["description"]}
@@ -80,10 +81,25 @@ def load_model(model_name: str, load_in_4bit: bool):
     return model, processor
 
 
-def generate_css(model, processor, prompt: str, max_new_tokens: int) -> str:
+def generate_css(
+    model,
+    processor,
+    prompt: str,
+    max_new_tokens: int,
+    image_path: Path | None = None,
+) -> str:
     import torch
 
-    messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+    content = []
+    if image_path is not None:
+        content.append(
+            {
+                "type": "image",
+                "url": image_path.resolve().as_uri(),
+            }
+        )
+    content.append({"type": "text", "text": prompt})
+    messages = [{"role": "user", "content": content}]
     inputs = processor.apply_chat_template(
         messages,
         tokenize=True,
@@ -207,7 +223,14 @@ def main() -> None:
             html = (case_root / "index.html").read_text(encoding="utf-8")
             prompt = build_prompt(case, html)
             print(f'[{index}/{len(cases)}] Generating {case["css_filename"]}...')
-            css = generate_css(model, processor, prompt, args.max_new_tokens)
+            reference_image = ROOT / case["reference_image"]
+            css = generate_css(
+                model,
+                processor,
+                prompt,
+                args.max_new_tokens,
+                image_path=reference_image,
+            )
             output_dir = generated_root / case["id"]
             output_dir.mkdir(parents=True, exist_ok=True)
             (output_dir / case["css_filename"]).write_text(css, encoding="utf-8")

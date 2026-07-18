@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window Size</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    #window-size {
+      font-size: 32px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div id="window-size"></div>
+  </main>
+
+  <script>
+    const sizeDisplay = document.getElementById("window-size");
+
+    function displayWindowSize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      sizeDisplay.textContent = `${width}px × ${height}px`;
+    }
+
+    displayWindowSize();
+
+    window.addEventListener("resize", displayWindowSize);
+  </script>
+</body>
+</html>

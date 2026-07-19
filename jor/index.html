@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Job Hunting Kit</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+          "Helvetica Neue", Arial, sans-serif;
+        background: #0d0f12;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        background: #0d0f12;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .stage {
+        width: 636px;
+        height: 970px;
+        overflow: hidden;
+        color: #e4e6e8;
+        background: #0d0f12;
+        transform: scale(var(--page-scale, 1));
+        transform-origin: left top;
+      }
+
+      .module-heading {
+        position: absolute;
+        top: -4px;
+        left: 60px;
+        margin: 0;
+        color: #9fa8b3;
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 41px;
+        letter-spacing: -0.2px;
+      }
+
+      h1 {
+        position: absolute;
+        top: 37px;
+        left: 61px;
+        margin: 0;
+        color: #e4e6e8;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 48px;
+        letter-spacing: -0.2px;
+      }
+
+      .course-outline {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .course-item {
+        position: absolute;
+        left: 0;
+        width: 636px;
+        height: 38px;
+      }
+
+      .course-item .label {
+        position: absolute;
+        top: 0;
+        left: 126px;
+        margin: 0;
+        white-space: nowrap;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 38px;
+        letter-spacing: -0.2px;
+      }
+
+      .course-item.muted .label {
+        color: #9fa8b3;
+        letter-spacing: 0.2px;
+      }
+
+      .course-item.child .label {
+        left: 182px;
+        color: #e4e6e8;
+        font-weight: 400;
+        letter-spacing: 1.2px;
+      }
+
+      .course-item.child.muted .label {
+        color: #9fa8b3;
+      }
+
+      .course-item.technical-interviews .label {
+        letter-spacing: -0.05px;
+      }
+
+      .course-item.selected {
+        top: 237px;
+        left: 28px;
+        width: 548px;
+        height: 108px;
+        border: 2px solid #fff;
+        border-radius: 0 55px 55px 0;
+        box-shadow: inset 0 0 0 4px #869ff8;
+      }
+
+      .course-item.selected .label {
+        top: 32px;
+        left: 96px;
+        color: #e4e6e8;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 38px;
+        letter-spacing: -0.2px;
+      }
+
+      .dot {
+        position: absolute;
+        top: 7px;
+        left: 66px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #5e666f;
+      }
+
+      .selected .dot {
+        top: 34px;
+        left: 30px;
+        width: 36px;
+        height: 36px;
+        background: #869ff8;
+      }
+
+      .child .status {
+        left: 122px;
+      }
+
+      .child .dot {
+        left: 122px;
+      }
+
+      .status {
+        position: absolute;
+        top: 7px;
+        left: 66px;
+        width: 31px;
+        height: 24px;
+      }
+
+      .status::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #5e666f;
+        content: "";
+      }
+
+      .status svg {
+        position: absolute;
+        top: 1px;
+        left: 10px;
+        width: 22px;
+        height: 20px;
+        overflow: visible;
+      }
+
+      .status path {
+        fill: none;
+        stroke: #5cc98e;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4;
+      }
+
+      .introduction {
+        top: 172px;
+      }
+
+      .cover-letters {
+        top: 372px;
+      }
+
+      .quantity-quality {
+        top: 452px;
+      }
+
+      .portfolios {
+        top: 552px;
+      }
+
+      .portfolio-site {
+        top: 632px;
+      }
+
+      .technical-interviews {
+        top: 732px;
+      }
+
+      .interview-challenges {
+        top: 832px;
+      }
+
+      .fizzbuzz {
+        top: 912px;
+      }
+
+      .progress-lines {
+        position: absolute;
+        inset: 0;
+        width: 636px;
+        height: 970px;
+        pointer-events: none;
+      }
+
+      .progress-lines path {
+        fill: none;
+        stroke: #5e666f;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-labelledby="page-title">
+      <p class="module-heading">Bonus Module</p>
+      <h1 id="page-title">Job Hunting Kit</h1>
+
+      <svg class="progress-lines" aria-hidden="true" viewBox="0 0 636 970">
+        <path d="M78 219V257" />
+        <path d="M78 325V363" />
+        <path d="M78 419V451Q78 471 98 471H106" />
+        <path d="M134 499V505Q134 522 117 522H98Q78 522 78 542" />
+        <path d="M78 599V631Q78 651 98 651H106" />
+        <path d="M134 679V685Q134 702 117 702H98Q78 702 78 722" />
+        <path d="M78 779V823" />
+        <path d="M78 879V911Q78 931 98 931H106" />
+        <path d="M134 959V973" />
+      </svg>
+
+      <ol class="course-outline" aria-label="Job Hunting Kit lessons">
+        <li class="course-item muted introduction">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Introduction</span>
+        </li>
+
+        <li class="course-item selected" aria-current="step">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">The Hiring Funnel</span>
+        </li>
+
+        <li class="course-item muted cover-letters">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Cover Letters</span>
+        </li>
+
+        <li class="course-item child quantity-quality">
+          <span class="status" aria-hidden="true">
+            <svg viewBox="0 0 22 20">
+              <path d="m2 9 6 6L19 3" />
+            </svg>
+          </span>
+          <span class="label">Quantity vs. Quality</span>
+        </li>
+
+        <li class="course-item muted portfolios">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Portfolios</span>
+        </li>
+
+        <li class="course-item child portfolio-site">
+          <span class="status" aria-hidden="true">
+            <svg viewBox="0 0 22 20">
+              <path d="m2 9 6 6L19 3" />
+            </svg>
+          </span>
+          <span class="label">Building a Portfolio Site</span>
+        </li>
+
+        <li class="course-item technical-interviews">
+          <span class="status" aria-hidden="true">
+            <svg viewBox="0 0 22 20">
+              <path d="m2 9 6 6L19 3" />
+            </svg>
+          </span>
+          <span class="label">Technical Interviews</span>
+        </li>
+
+        <li class="course-item muted interview-challenges">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Interview-Style Challenges</span>
+        </li>
+
+        <li class="course-item child muted fizzbuzz">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">FizzBuzz</span>
+        </li>
+      </ol>
+    </main>
+
+    <script>
+      const fitStage = () => {
+        const scale = Math.min(1, window.innerWidth / 636);
+        document.documentElement.style.setProperty("--page-scale", scale);
+        document.body.style.height = `${970 * scale}px`;
+      };
+
+      fitStage();
+      window.addEventListener("resize", fitStage);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+{"id":"01-guest-selector","track":"component-interactions","difficulty":"medium","task":"TASK.md","editable":["src/**"],"protected":["tests/**","playwright.config.js","package.json"],"viewports":[{"width":375,"height":812},{"width":1440,"height":900}],"required_checks":["build","interaction","keyboard","focus","accessibility","overflow"]}

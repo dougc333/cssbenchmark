@@ -1,15 +1,90 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Step 1 — Outside canvas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 1 — Canvas and outside background</title>
+  <style>
+    @font-face {
+      font-family: "DM Sans";
+      src: url("../assets/fonts/dm-sans/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "DM Mono";
+      src: url("../assets/fonts/dm-mono/DMMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --neutral-900: hsl(33 15% 15%);
+      --terracotta-700: hsl(15 69% 37%);
+      color: var(--neutral-900);
+      font-family: "DM Sans", sans-serif;
+      background: #efefee;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    .preview-stage {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      overflow: hidden;
+      padding: 5.35rem 4.35rem;
+      background: #efefee;
+    }
+
+    .construction-label {
+      position: fixed;
+      z-index: 50;
+      top: 1rem;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0.8rem;
+      transform: translateX(-50%);
+      border: 1px solid #d7d3cd;
+      border-radius: 999px;
+      color: #5a5248;
+      background: rgb(255 255 255 / 88%);
+      box-shadow: 0 5px 16px rgb(43 38 32 / 8%);
+      font-size: 0.75rem;
+    }
+
+    .construction-label span {
+      color: var(--terracotta-700);
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
-
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <main class="preview-stage">
+    <div class="construction-label" aria-hidden="true">
+      <span>Step 01</span>
+      Canvas and outside background
+    </div>
+  </main>
 </body>
-
 </html>

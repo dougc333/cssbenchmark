@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 4 — Flex and grid box map</title>
+  <style>
+    :root {
+      --page: #efefee;
+      --panel: #fffaf3;
+      --grid: #2563eb;
+      --flex: #dc2626;
+      --box: #6b7280;
+      --text: #211d19;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: var(--page);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    /* Matches index.html: display:grid; place-items:center. */
+    .preview-stage {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      overflow: hidden;
+      padding: 5.35rem 4.35rem;
+      border: 1px solid var(--grid);
+      background: var(--page);
+    }
+
+    /* Matches index.html: display:flex; align-items:center; gap:.65rem. */
+    .construction-label {
+      position: fixed;
+      z-index: 50;
+      top: 1rem;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0.8rem;
+      transform: translateX(-50%);
+      border: 1px solid var(--flex);
+      background: #fff;
+      font-size: 0.75rem;
+    }
+
+    .construction-label > span {
+      padding: 2px 4px;
+      border: 1px solid var(--box);
+    }
+
+    /* Matches index.html: two-column grid, 235px + remaining space. */
+    .hotel-app {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 235px minmax(0, 1fr);
+      width: min(1300px, calc(100vw - 8.7rem));
+      min-height: 882px;
+      overflow: hidden;
+      border: 1px solid var(--grid);
+      background: var(--panel);
+    }
+
+    .sidebar-geometry {
+      min-width: 0;
+      border: 1px solid var(--box);
+      background: rgb(37 99 235 / 5%);
+    }
+
+    .sidebar-title,
+    .content-title {
+      margin: 0;
+      padding: 8px;
+      border: 1px solid var(--box);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Matches index.html: every icon sidebar item is a flex row. */
+    .sidebar-item.icon {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--flex);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .icon-box {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex: 0 0 1.5rem;
+      border: 1px solid var(--box);
+      background: rgb(220 38 38 / 8%);
+    }
+
+    .text-box {
+      min-width: 0;
+      padding: 2px 4px;
+      border: 1px solid var(--box);
+      font-size: 11px;
+    }
+
+    .app-content {
+      min-width: 0;
+      padding: 1.5rem;
+      border: 1px solid var(--box);
+      background: rgb(107 114 128 / 3%);
+    }
+
+    .key {
+      width: min(440px, 100%);
+      margin-top: 18px;
+      padding: 12px;
+      border: 1px solid var(--box);
+      background: #fff;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .key p {
+      margin: 0;
+    }
+
+    .grid-text {
+      color: var(--grid);
+    }
+
+    .flex-text {
+      color: var(--flex);
+    }
+
+    @media (max-width: 1080px) {
+      .preview-stage {
+        padding: 0;
+      }
+
+      .hotel-app {
+        width: 100%;
+        min-height: 100vh;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .construction-label {
+        display: none;
+      }
+
+      /* Matches the mobile override in index.html: grid becomes block. */
+      .hotel-app {
+        display: block;
+        overflow: visible;
+      }
+
+      .sidebar-geometry {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="preview-stage">
+    <div class="construction-label" aria-hidden="true">
+      <span>FLEX</span>
+      <span>.construction-label</span>
+    </div>
+
+    <section class="hotel-app" aria-label="Step 4 layout box map">
+      <aside class="sidebar-geometry" aria-label="Sidebar box">
+        <p class="sidebar-title">
+          GRID ITEM 1 · .sidebar-geometry · 235px
+        </p>
+
+        <div class="sidebar-item icon">
+          <span class="icon-box" aria-hidden="true"></span>
+          <span class="text-box">FLEX ITEM · Your stay</span>
+        </div>
+        <div class="sidebar-item icon">
+          <span class="icon-box" aria-hidden="true"></span>
+          <span class="text-box">FLEX ITEM · The house</span>
+        </div>
+        <div class="sidebar-item icon">
+          <span class="icon-box" aria-hidden="true"></span>
+          <span class="text-box">FLEX ITEM · Around town</span>
+        </div>
+        <div class="sidebar-item icon">
+          <span class="icon-box" aria-hidden="true"></span>
+          <span class="text-box">FLEX ITEM · Breakfast</span>
+        </div>
+        <div class="sidebar-item icon">
+          <span class="icon-box" aria-hidden="true"></span>
+          <span class="text-box">FLEX ITEM · Messages</span>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <p class="content-title">
+          GRID ITEM 2 · .app-content · minmax(0, 1fr)
+        </p>
+
+        <div class="key">
+          <p class="grid-text">Blue border = active CSS Grid container</p>
+          <p class="flex-text">Red border = active Flexbox container</p>
+          <p>Gray border = child/item box</p>
+          <p>.preview-stage: grid; place-items: center</p>
+          <p>.hotel-app: grid; columns: 235px minmax(0, 1fr)</p>
+          <p>.sidebar-item.icon: flex; align-items: center; gap: .5rem</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

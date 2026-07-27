@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Soleil - Booking Confirmation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:opsz,wght@9..40,400;500;600&family=Fraunces:wght@400;400italic&display=swap');
+
+        :root {
+            --font-heading: 'Fraunces', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'DM Mono', monospace;
+
+            --color-neutral-900: #1a1a1a;
+            --color-neutral-700: #4a4a4a;
+            --color-neutral-500: #737373;
+            --color-neutral-400: #a3a3a3;
+            --color-terracotta-700: #a65e3e;
+            --color-terracotta-500: #c97a52;
+            --color-bg: #f9f7f2;
+            --color-sidebar-bg: #fdfcfb;
+            --color-white: #ffffff;
+            --color-border: #e5e5e5;
+            --color-accent: #f4d03f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-neutral-900);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Prevent scroll for fixed viewport */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-container {
+            width: 100%;
+            height: 100%;
+            max-width: 1440px;
+            display: flex;
+            background-color: var(--color-white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background-color: var(--color-sidebar-bg);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--color-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .brand-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--color-terracotta-700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .brand-name {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            color: var(--color-terracotta-700);
+            line-height: 1;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 64px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: var(--color-neutral-700);
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .nav-item.active {
+            background-color: rgba(0,0,0,0.05);
+            color: var(--color-neutral-900);
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .badge {
+            background-color: var(--color-terracotta-700);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .weather-widget {
+            background-color: var(--color-accent);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-widget::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+
+        .weather-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            color: var(--color-neutral-900);
+        }
+
+        .weather-temp {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .weather-desc {
+            font-size: 12px;
+            color: var(--color-neutral-700);
+        }
+
+        .footer-info {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-neutral-400);
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 80px;
+        }
+
+        .booking-status {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--color-neutral-400);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .heading-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--color-neutral-900);
+        }
+
+        h1 span {
+            color: var(--color-terracotta-700);
+            font-style: italic;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: var(--font-body);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--color-neutral-400);
+            color: var(--color-neutral-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-neutral-900);
+            color: var(--color-neutral-900);
+        }
+
+        .btn-primary {
+            background-color: var(--color-neutral-900);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-neutral-700);
+        }
+
+        /* Placeholder for the rest of the page to match the image structure */
+        .content-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: var(--color-bg);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-neutral-400);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">☀</div>
+                <div class="brand-name">Maison<br>Soleil</div>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item active">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Your stay
+                        <span class="badge">1</span>
+                    </li>
+                    <li class="nav-item">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        The house
+                    </li>
+                    <li class="nav-item">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Around town
+                    </li>
+                    <li class="nav-item">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Breakfast
+                    </li>
+                    <li class="nav-item">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        Messages
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="weather-widget">
+                <div class="weather-label">Today in Cassis</div>
+                <div class="weather-temp">27°</div>
+                <div class="weather-desc">Sunny · light breeze</div>
+            </div>
+
+            <div class="footer-info">
+                EST. 1987<br>
+                MAISON SOLEIL · 12 RUE DES OLIVIERS<br>
+                CASSIS<br>
+                © 2026 MAISON SOLEIL
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header-row">
+                <div class="heading-group">
+                    <div class="booking-status">Booking · Confirmed</div>
+                    <h1>Bienvenue, <span>Lucia.</span></h1>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-outline">Print receipt</button>
+                    <button class="btn btn-primary">Add to calendar</button>
+                </div>
+            </div>
+
+            <!-- Placeholder for the rest of the content to simulate the full page structure -->
+            <div class="content-placeholder">
+                [Content continues below header]
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

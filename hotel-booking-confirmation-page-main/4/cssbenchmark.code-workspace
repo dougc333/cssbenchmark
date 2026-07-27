@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../test_css"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "cssbenchmark"
+	}
+}

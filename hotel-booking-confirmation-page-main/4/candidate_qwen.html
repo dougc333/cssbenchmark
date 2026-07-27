@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 4 — Complete sidebar</title>
+  <style>
+    @font-face {
+      font-family: "Fraunces";
+      src: url("../assets/fonts/fraunces/Fraunces-VariableFont_SOFT,WONK,opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "DM Sans";
+      src: url("../assets/fonts/dm-sans/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "DM Mono";
+      src: url("../assets/fonts/dm-mono/DMMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --neutral-900: hsl(33 15% 15%);
+      --neutral-700: hsl(32 20% 29%);
+      --neutral-600: hsl(33 17% 41%);
+      --neutral-400: hsl(36 22% 86%);
+      --neutral-100: hsl(35 60% 96%);
+      --white: hsl(0 0% 100%);
+      --sun-300: hsl(44 84% 75%);
+      --terracotta-700: hsl(15 69% 37%);
+      --terracotta-500: hsl(18 62% 47%);
+      color: var(--neutral-900);
+      font-family: "DM Sans", sans-serif;
+      background: #efefee;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    a {
+      font: inherit;
+    }
+
+    .preview-stage {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      overflow: hidden;
+      padding: 5.35rem 4.35rem;
+      background: #efefee;
+    }
+
+    .construction-label {
+      position: fixed;
+      z-index: 50;
+      top: 1rem;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0.8rem;
+      transform: translateX(-50%);
+      border: 1px solid #d7d3cd;
+      border-radius: 999px;
+      color: #5a5248;
+      background: rgb(255 255 255 / 88%);
+      box-shadow: 0 5px 16px rgb(43 38 32 / 8%);
+      font-size: 0.75rem;
+    }
+
+    .construction-label span {
+      color: var(--terracotta-700);
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hotel-app {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 235px minmax(0, 1fr);
+      width: min(1300px, calc(100vw - 8.7rem));
+      min-height: 882px;
+      overflow: hidden;
+      border: 1px solid rgb(43 38 32 / 5%);
+      border-radius: 16px;
+      background: var(--neutral-100);
+      box-shadow: 0 22px 28px rgb(43 38 32 / 24%);
+    }
+
+    .sidebar-geometry {
+      min-width: 0;
+      border-right: 1px solid var(--neutral-400);
+      background: var(--neutral-100);
+    }
+
+    .sidebar {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 15px 17px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 107px;
+      height: 42px;
+      margin: 0 0 14px 1px;
+    }
+
+    .sidebar-rule {
+      height: 1px;
+      margin-bottom: 14px;
+      background: var(--neutral-400);
+    }
+
+    .guest-nav ul {
+      display: grid;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: grid;
+      min-height: 38px;
+      grid-template-columns: 20px 1fr auto;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      border: 2px solid transparent;
+      border-radius: 7px;
+      color: var(--neutral-700);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-link img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-link:hover,
+    .nav-link--active {
+      color: var(--neutral-900);
+      background: var(--white);
+    }
+
+    .nav-link:focus-visible {
+      border-color: var(--terracotta-500);
+      outline: none;
+    }
+
+    .nav-badge {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--terracotta-700);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .sidebar-bottom {
+      display: grid;
+      gap: 18px;
+    }
+
+    .weather-card {
+      position: relative;
+      min-height: 94px;
+      overflow: hidden;
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffe69b, var(--sun-300));
+      box-shadow: 0 9px 18px rgb(116 82 28 / 10%);
+    }
+
+    .weather-card img {
+      position: absolute;
+      top: -17px;
+      right: -15px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .weather-card p {
+      position: relative;
+      margin: 0;
+    }
+
+    .weather-card .eyebrow,
+    .property-footer {
+      font-family: "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .weather-card .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .temperature {
+      margin-top: 3px !important;
+      font-family: "Fraunces", serif;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .weather-copy {
+      margin-top: 4px !important;
+      font-size: 11px;
+    }
+
+    .property-footer {
+      display: grid;
+      gap: 8px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--neutral-400);
+      color: var(--neutral-600);
+      font-size: 8.5px;
+      line-height: 1.35;
+      letter-spacing: 0.08em;
+    }
+
+    .property-footer p,
+    .property-footer address {
+      margin: 0;
+      font: inherit;
+      font-style: normal;
+    }
+
+    .app-content {
+      min-width: 0;
+    }
+
+    @media (max-width: 1080px) {
+      .preview-stage {
+        padding: 0;
+      }
+
+      .hotel-app {
+        width: 100%;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .construction-label {
+        display: none;
+      }
+
+      .hotel-app {
+        display: block;
+        overflow: visible;
+      }
+
+      .sidebar-geometry {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="preview-stage">
+    <div class="construction-label" aria-hidden="true">
+      <span>Step 04</span>
+      Complete sidebar
+    </div>
+
+    <section class="hotel-app" aria-label="Maison Soleil application shell">
+      <div class="sidebar-geometry">
+        <aside class="sidebar">
+          <div class="sidebar-top">
+            <img class="brand-logo" src="../assets/images/logo.svg" alt="Maison Soleil">
+            <div class="sidebar-rule"></div>
+
+            <nav class="guest-nav" aria-label="Guest navigation">
+              <ul>
+                <li>
+                  <a class="nav-link nav-link--active" href="#your-stay" aria-current="page">
+                    <img src="../assets/images/icon-bed.svg" alt="">
+                    <span>Your stay</span>
+                    <span class="nav-badge">1</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#the-house">
+                    <img src="../assets/images/icon-house.svg" alt="">
+                    <span>The house</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#around-town">
+                    <img src="../assets/images/icon-pin.svg" alt="">
+                    <span>Around town</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#breakfast">
+                    <img src="../assets/images/icon-breakfast-outline.svg" alt="">
+                    <span>Breakfast</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#messages">
+                    <img src="../assets/images/icon-mail.svg" alt="">
+                    <span>Messages</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="sidebar-bottom">
+            <section class="weather-card" aria-label="Weather in Cassis">
+              <img src="../assets/images/icon-weather.svg" alt="">
+              <p class="eyebrow">Today in Cassis</p>
+              <p class="temperature">27°</p>
+              <p class="weather-copy">Sunny · light breeze</p>
+            </section>
+
+            <footer class="property-footer">
+              <p>EST. 1987</p>
+              <address>Maison Soleil · 12 Rue des Oliviers · Cassis</address>
+              <p>© 2026 MAISON SOLEIL</p>
+            </footer>
+          </div>
+        </aside>
+      </div>
+
+      <div class="app-content"></div>
+    </section>
+  </main>
+</body>
+</html>

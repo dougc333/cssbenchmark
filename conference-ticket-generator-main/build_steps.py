@@ -1,0 +1,526 @@
+"""Generate the seven cumulative, inline-CSS teaching stages."""
+
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+
+CSS = [
+    """
+    /* Step 1: reset, local type, showcase canvas, and app frame. */
+    @font-face {
+      font-family: "Inconsolata";
+      src: url("../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf") format("truetype");
+      font-weight: 400 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --neutral-0: hsl(0 0% 100%);
+      --neutral-300: hsl(252 6% 83%);
+      --neutral-500: hsl(245 15% 58%);
+      --neutral-700: hsl(245 19% 35%);
+      --neutral-900: hsl(248 70% 10%);
+      --orange-500: hsl(7 88% 67%);
+      --orange-700: hsl(7 71% 60%);
+      color: var(--neutral-0);
+      font-family: "Inconsolata", monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background: #f3f3f3;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .showcase {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      overflow: hidden;
+      padding: 101px 120px;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      isolation: isolate;
+      width: min(1200px, calc(100vw - 240px));
+      aspect-ratio: 1200 / 854;
+      overflow: hidden;
+      background: var(--neutral-900);
+      box-shadow: 0 18px 26px rgb(16 12 27 / 24%);
+    }
+    """,
+    """
+    /* Step 2: supplied background and decorative image layers. */
+    .app {
+      background-image: url("../assets/images/background-desktop.png");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .pattern {
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .pattern-lines {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pattern-circle--top {
+      top: -64px;
+      left: 33px;
+      width: 181px;
+    }
+
+    .pattern-circle--ticket {
+      right: 176px;
+      bottom: 174px;
+      width: 181px;
+    }
+
+    .pattern-squiggle--top {
+      top: 62px;
+      right: -80px;
+      width: 372px;
+      opacity: 0.42;
+    }
+
+    .pattern-squiggle--bottom {
+      bottom: -4px;
+      left: -36px;
+      width: 688px;
+    }
+    """,
+    """
+    /* Step 3: centered event branding. */
+    .site-header {
+      position: absolute;
+      z-index: 2;
+      top: 34px;
+      left: 50%;
+      width: 174px;
+      transform: translateX(-50%);
+    }
+
+    .site-header img {
+      width: 100%;
+    }
+    """,
+    """
+    /* Step 4: primary message and gradient attendee name. */
+    .hero-title {
+      position: absolute;
+      z-index: 2;
+      top: 119px;
+      left: 50%;
+      width: min(720px, 76%);
+      margin: 0;
+      transform: translateX(-50%);
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .hero-title .attendee-name {
+      color: var(--orange-500);
+      background: linear-gradient(90deg, var(--orange-500), var(--neutral-0));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    """,
+    """
+    /* Step 5: supporting copy and highlighted email address. */
+    .hero-copy {
+      position: absolute;
+      z-index: 2;
+      top: 255px;
+      left: 50%;
+      width: min(430px, 72%);
+      margin: 0;
+      transform: translateX(-50%);
+      color: var(--neutral-300);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.42;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .hero-copy strong {
+      color: var(--orange-500);
+      font-weight: 500;
+    }
+    """,
+    """
+    /* Step 6: supplied ticket silhouette, event brand, date, and stub. */
+    .ticket {
+      position: absolute;
+      z-index: 2;
+      top: 419px;
+      left: 50%;
+      width: 500px;
+      height: 233px;
+      transform: translateX(-50%);
+      background: url("../assets/images/pattern-ticket.svg") center / 100% 100% no-repeat;
+    }
+
+    .ticket-brand {
+      position: absolute;
+      top: 23px;
+      left: 18px;
+      width: 174px;
+    }
+
+    .ticket-date {
+      position: absolute;
+      top: 58px;
+      left: 59px;
+      margin: 0;
+      color: var(--neutral-300);
+      font-size: 12px;
+      letter-spacing: 0.015em;
+    }
+
+    .ticket-number {
+      position: absolute;
+      top: 69px;
+      right: 18px;
+      margin: 0;
+      color: var(--neutral-500);
+      font-size: 18px;
+      font-weight: 500;
+      writing-mode: vertical-rl;
+    }
+    """,
+    """
+    /* Step 7: attendee row, outer preview details, and responsive behavior. */
+    .ticket-attendee {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ticket-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .ticket-person {
+      min-width: 0;
+    }
+
+    .ticket-name {
+      margin: 0 0 5px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .ticket-github {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      color: var(--neutral-300);
+      font-size: 13px;
+    }
+
+    .ticket-github img {
+      width: 17px;
+      height: 18px;
+    }
+
+    .outer-decoration {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .outer-arc {
+      top: -146px;
+      left: 17px;
+      width: 342px;
+      height: 261px;
+      border: 10px solid #66bfca;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      transform: rotate(11deg);
+    }
+
+    .outer-lines {
+      top: -98px;
+      right: 266px;
+      width: 18px;
+      height: 226px;
+      border-right: 8px solid #e5f1f6;
+      border-left: 8px solid #e5f1f6;
+      transform: rotate(24deg);
+    }
+
+    .outer-dots {
+      width: 66px;
+      height: 144px;
+      background-image: radial-gradient(circle, #66bdca 0 8px, transparent 8.5px);
+      background-size: 24px 24px;
+    }
+
+    .outer-dots--left {
+      bottom: 347px;
+      left: -9px;
+    }
+
+    .outer-dots--right {
+      top: 247px;
+      right: 3px;
+    }
+
+    .outer-zigzag {
+      right: 16px;
+      bottom: 24px;
+      width: 270px;
+      height: 78px;
+      opacity: 0.52;
+      background:
+        linear-gradient(135deg, transparent 42%, #f5b8b8 43% 50%, transparent 51%) 0 0 / 48px 39px,
+        linear-gradient(45deg, transparent 42%, #f5b8b8 43% 50%, transparent 51%) 24px 0 / 48px 39px;
+    }
+
+    @media (max-width: 700px) {
+      .showcase {
+        min-height: 100vh;
+        padding: 0;
+      }
+
+      .app {
+        width: 100%;
+        min-height: 812px;
+        aspect-ratio: auto;
+        background-image: url("../assets/images/background-mobile.png");
+        background-position: center top;
+        box-shadow: none;
+      }
+
+      .site-header {
+        top: 24px;
+        width: 166px;
+      }
+
+      .hero-title {
+        top: 105px;
+        width: calc(100% - 32px);
+        font-size: 30px;
+        line-height: 1.1;
+      }
+
+      .hero-copy {
+        top: 235px;
+        width: calc(100% - 40px);
+        font-size: 18px;
+      }
+
+      .ticket {
+        top: 420px;
+        width: min(343px, calc(100% - 32px));
+        height: auto;
+        aspect-ratio: 600 / 280;
+      }
+
+      .ticket-brand {
+        top: 16px;
+        left: 12px;
+        width: 145px;
+      }
+
+      .ticket-date {
+        top: 46px;
+        left: 47px;
+        font-size: 10px;
+      }
+
+      .ticket-number {
+        top: 48px;
+        right: 11px;
+        font-size: 14px;
+      }
+
+      .ticket-attendee {
+        bottom: 13px;
+        left: 12px;
+        gap: 9px;
+      }
+
+      .ticket-avatar {
+        width: 45px;
+        height: 45px;
+      }
+
+      .ticket-name {
+        font-size: 16px;
+      }
+
+      .ticket-github {
+        font-size: 11px;
+      }
+
+      .pattern-circle--top {
+        left: -18px;
+      }
+
+      .pattern-circle--ticket {
+        right: -90px;
+        bottom: 52px;
+      }
+
+      .pattern-squiggle--top {
+        top: 56px;
+        right: -255px;
+      }
+
+      .pattern-squiggle--bottom {
+        bottom: 0;
+        left: -390px;
+        width: 760px;
+        content: url("../assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg");
+      }
+
+      .outer-decoration {
+        display: none;
+      }
+    }
+    """,
+]
+
+
+def patterns() -> str:
+    return """
+      <img class="pattern pattern-lines" src="../assets/images/pattern-lines.svg" alt="">
+      <img class="pattern pattern-circle--top" src="../assets/images/pattern-circle.svg" alt="">
+      <img class="pattern pattern-circle--ticket" src="../assets/images/pattern-circle.svg" alt="">
+      <img class="pattern pattern-squiggle--top" src="../assets/images/pattern-squiggly-line-top.svg" alt="">
+      <img class="pattern pattern-squiggle--bottom" src="../assets/images/pattern-squiggly-line-bottom-desktop.svg" alt="">
+    """
+
+
+def ticket(stage: int) -> str:
+    if stage < 6:
+        return ""
+
+    attendee = ""
+    if stage >= 7:
+        attendee = """
+        <div class="ticket-attendee">
+          <img class="ticket-avatar" src="../assets/images/image-avatar.jpg" alt="Portrait of Jonatan Kristof">
+          <div class="ticket-person">
+            <p class="ticket-name">Jonatan Kristof</p>
+            <p class="ticket-github">
+              <img src="../assets/images/icon-github.svg" alt="">
+              <span>@jonatankristof0101</span>
+            </p>
+          </div>
+        </div>
+        """
+
+    return f"""
+      <article class="ticket" aria-label="Conference ticket for Jonatan Kristof">
+        <img class="ticket-brand" src="../assets/images/logo-full.svg" alt="Coding Conf">
+        <p class="ticket-date">Jan 31, 2025&nbsp; / &nbsp;Austin, TX</p>
+        {attendee}
+        <p class="ticket-number">#01609</p>
+      </article>
+    """
+
+
+def page(stage: int) -> str:
+    background = patterns() if stage >= 2 else ""
+    header = "" if stage < 3 else """
+      <header class="site-header">
+        <img src="../assets/images/logo-full.svg" alt="Coding Conf">
+      </header>
+    """
+    title = "" if stage < 4 else """
+      <h1 class="hero-title">
+        Congrats, <span class="attendee-name">Jonatan Kristof</span>!<br>
+        Your ticket is ready.
+      </h1>
+    """
+    copy = "" if stage < 5 else """
+      <p class="hero-copy">
+        We've emailed your ticket to <strong>jonatan@email.com</strong> and will
+        send updates in the run up to the event.
+      </p>
+    """
+    outside = "" if stage < 7 else """
+    <span class="outer-decoration outer-arc" aria-hidden="true"></span>
+    <span class="outer-decoration outer-lines" aria-hidden="true"></span>
+    <span class="outer-decoration outer-dots outer-dots--left" aria-hidden="true"></span>
+    <span class="outer-decoration outer-dots outer-dots--right" aria-hidden="true"></span>
+    <span class="outer-decoration outer-zigzag" aria-hidden="true"></span>
+    """
+
+    css = "\n".join(CSS[:stage])
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+  <title>Conference ticket decomposition — Step {stage}</title>
+  <style>{css}
+  </style>
+</head>
+<body>
+  <main class="showcase">
+    {outside}
+    <section class="app" aria-label="Coding Conf ticket confirmation">
+      {background}
+      {header}
+      {title}
+      {copy}
+      {ticket(stage)}
+    </section>
+  </main>
+</body>
+</html>
+"""
+
+
+for number in range(1, 8):
+    directory = ROOT / str(number)
+    directory.mkdir(exist_ok=True)
+    (directory / "index.html").write_text(page(number), encoding="utf-8")

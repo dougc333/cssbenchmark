@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 4 — Complete sidebar (embedded assets)</title>
+  <style>
+    @font-face {
+      font-family: "Fraunces";
+      src: url("../assets/fonts/fraunces/Fraunces-VariableFont_SOFT,WONK,opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "DM Sans";
+      src: url("../assets/fonts/dm-sans/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "DM Mono";
+      src: url("../assets/fonts/dm-mono/DMMono-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --neutral-900: hsl(33 15% 15%);
+      --neutral-700: hsl(32 20% 29%);
+      --neutral-600: hsl(33 17% 41%);
+      --neutral-400: hsl(36 22% 86%);
+      --neutral-100: hsl(35 60% 96%);
+      --white: hsl(0 0% 100%);
+      --sun-300: hsl(44 84% 75%);
+      --terracotta-700: hsl(15 69% 37%);
+      --terracotta-500: hsl(18 62% 47%);
+      color: var(--neutral-900);
+      font-family: "DM Sans", sans-serif;
+      background: #efefee;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    a { font: inherit; }
+
+    .preview-stage {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      overflow: hidden;
+      padding: 5.35rem 4.35rem;
+      background: #efefee;
+    }
+
+    .construction-label {
+      position: fixed;
+      z-index: 50;
+      top: 1rem;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0.8rem;
+      transform: translateX(-50%);
+      border: 1px solid #d7d3cd;
+      border-radius: 999px;
+      color: #5a5248;
+      background: rgb(255 255 255 / 88%);
+      box-shadow: 0 5px 16px rgb(43 38 32 / 8%);
+      font-size: 0.75rem;
+    }
+
+    .construction-label span {
+      color: var(--terracotta-700);
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hotel-app {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 235px minmax(0, 1fr);
+      width: min(1300px, calc(100vw - 8.7rem));
+      min-height: 882px;
+      overflow: hidden;
+      border: 1px solid rgb(43 38 32 / 5%);
+      border-radius: 16px;
+      background: var(--neutral-100);
+      box-shadow: 0 22px 28px rgb(43 38 32 / 24%);
+    }
+
+    .sidebar-geometry {
+      min-width: 0;
+      border-right: 1px solid var(--neutral-400);
+      background: var(--neutral-100);
+    }
+
+    .sidebar {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 15px 17px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 107px;
+      height: 42px;
+      margin: 0 0 14px 1px;
+    }
+
+    .sidebar-rule {
+      height: 1px;
+      margin-bottom: 14px;
+      background: var(--neutral-400);
+    }
+
+    .guest-nav ul {
+      display: grid;
+      gap: 2px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: grid;
+      min-height: 38px;
+      grid-template-columns: 20px 1fr auto;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 12px;
+      border: 2px solid transparent;
+      border-radius: 7px;
+      color: var(--neutral-700);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .nav-link img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-link:hover, .nav-link--active {
+      color: var(--neutral-900);
+      background: var(--white);
+    }
+
+    .nav-link:focus-visible {
+      border-color: var(--terracotta-500);
+      outline: none;
+    }
+
+    .nav-badge {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--terracotta-700);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .sidebar-bottom {
+      display: grid;
+      gap: 18px;
+    }
+
+    .weather-card {
+      position: relative;
+      min-height: 94px;
+      overflow: hidden;
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ffe69b, var(--sun-300));
+      box-shadow: 0 9px 18px rgb(116 82 28 / 10%);
+    }
+
+    .weather-card img {
+      position: absolute;
+      top: -17px;
+      right: -15px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .weather-card p { position: relative; margin: 0; }
+
+    .weather-card .eyebrow, .property-footer {
+      font-family: "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .weather-card .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+    }
+
+    .temperature {
+      margin-top: 3px !important;
+      font-family: "Fraunces", serif;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .weather-copy {
+      margin-top: 4px !important;
+      font-size: 11px;
+    }
+
+    .property-footer {
+      display: grid;
+      gap: 8px;
+      padding-top: 15px;
+      border-top: 1px dashed var(--neutral-400);
+      color: var(--neutral-600);
+      font-size: 8.5px;
+      line-height: 1.35;
+      letter-spacing: 0.08em;
+    }
+
+    .property-footer p, .property-footer address {
+      margin: 0;
+      font: inherit;
+      font-style: normal;
+    }
+
+    .app-content { min-width: 0; }
+
+    @media (max-width: 1080px) {
+      .preview-stage { padding: 0; }
+      .hotel-app {
+        width: 100%;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .construction-label { display: none; }
+      .hotel-app { display: block; overflow: visible; }
+      .sidebar-geometry { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="preview-stage">
+    <div class="construction-label" aria-hidden="true">
+      <span>Step 04</span>
+      Complete sidebar
+    </div>
+
+    <section class="hotel-app" aria-label="Maison Soleil application shell">
+      <div class="sidebar-geometry">
+        <aside class="sidebar">
+          <div class="sidebar-top">
+            <img class="brand-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDciIGhlaWdodD0iNDIiIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxMDcgNDIiPjxnIHN0cm9rZT0iI2MyNWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjI3NSI+PHBhdGggZmlsbD0iI2Y1ZDk4YSIgZD0iTTE3IDI2Ljk1YTUuOTUgNS45NSAwIDEgMCAwLTExLjkgNS45NSA1Ljk1IDAgMCAwIDAgMTEuOVoiLz48cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIGQ9Ik0yNi4zNSAyMWg0LjI1bS02Ljk4OSA2LjYxMSAzLjAwNiAzLjAwNk0xNyAzMC4zNXY0LjI1bS02LjYxMS02Ljk4OS0zLjAwNiAzLjAwNk03LjY1IDIxSDMuNG02Ljk4OS02LjYxMS0zLjAwNi0zLjAwNk0xNyAxMS42NVY3LjRtNi42MTEgNi45ODkgMy4wMDYtMy4wMDYiLz48L2c+PHBhdGggZmlsbD0iI2I3NDExYiIgZD0ibTUwLjcyIDEzLjM1LS43Ni40NiA2LjIzLTEwLjA4cS4yNi0uNDIuNTYtLjU3LjMxLS4xNi42Mi0uMTZoMi4wN3EuMjcgMCAuMzYuMDkuMS4wOS4wOS4yNWEuNC40IDAgMCAxLS4xNC4yOC44LjggMCAwIDEtLjMxLjE1bC0uNjEuMTNhLjcuNyAwIDAgMC0uMzguMjFxLS4xNS4xNi0uMi40Ny0uMDkuNDgtLjIzIDEuMi0uMTMuNzItLjMgMS42LS4xNy44Ny0uMzYgMS44MUw1NyAxMS4wNnEtLjE3LjkzLS4zMyAxLjc3bC0uMjcgMS40OXEtLjExLjY2LS4xNyAxLjA2LS4wNS4zLjAzLjQ5LjA4LjE4LjMyLjI0bC42Ny4xNmEuNi42IDAgMCAxIC4yNC4xM3EuMDkuMDcuMDguMjJhLjM4LjM4IDAgMCAxLS4xNi4yOHEtLjEzLjEtLjM5LjFINTIuOHEtLjI2IDAtLjM3LS4xYS4zNC4zNCAwIDAgMS0uMDktLjI3cS4wMS0uMTcuMTMtLjI1YS44LjggMCAwIDEgLjI4LS4xM2wuNjYtLjE0YS45NC45NCAwIDAgMCAuNDQtLjI0cS4xOC0uMTcuMjUtLjUyLjExLS42MS4yNi0xLjM4bC4zMi0xLjY1cS4xOC0uODkuMzYtMS44M2ExNTcgMTU3IDAgMCAwIC43MS0zLjc0cS4xNi0uOTEuMjktMS43MmwuMjktLjA4LTYuMDEgOS45cS0uMjUuMzYtLjQ0LjVhLjcuNyAwIDAgMS0uNDUuMTRxLS4yMSAwLS4zNi0uMTh0LS4yMi0uNDdsLS4yNS0xLjU0LS4yNS0xLjY0cS0uMTItLjg0LS4yNS0xLjdsLS4yNi0xLjcxYTkwIDkwIDAgMCAwLS4yNy0xLjY4IDY1IDY1IDAgMCAwLS4yNy0xLjU4bC40MS0uMDgtMi45NCA5LjkycS0uMTUuNTgtLjA1Ljg4LjExLjI5LjQ3LjRsLjU4LjE0cS4zMy4xMi4zMS4zNWEuNDMuNDMgMCAwIDEtLjE5LjNxLS4xNS4xLS40My4xaC0zLjEzcS0uMjcgMC0uMzgtLjFhLjMyLjMyIDAgMCAxLS4xMS0uMjcuMzYuMzYgMCAwIDEgLjE0LS4yOC44LjggMCAwIDEgLjMzLS4xNWwuNDgtLjExcS4yOC0uMDcuNDgtLjIzLjIxLS4xNi4zOC0uNXQuMzQtLjk1bDIuODMtOS42NXEuMTItLjM3LjA0LS41OHQtLjMzLS4yN2wtLjctLjE3YS43LjcgMCAwIDEtLjI1LS4xNC4yNy4yNyAwIDAgMS0uMDYtLjIzLjMyLjMyIDAgMCAxIC4xNS0uMjdxLjE1LS4xLjM5LS4xaDIuMTRxLjM5IDAgLjYzLjIyLjI0LjIxLjM0LjcyLjEyLjY4LjI0IDEuNDNhMjU4IDI1OCAwIDAgMSAuNDggMy4xMmwuMjYgMS42My4yOCAxLjYzcS4xNS44MS4yOSAxLjZtMTYuMzY1IDEuMDdxLS4yMS44Mi0uMTQgMS4xM3QuMzEuMzFxLjE4IDAgLjM2LS4xMWEzIDMgMCAwIDAgLjQ2LS4zNyAxIDEgMCAwIDEgLjI2LS4xOS4yMy4yMyAwIDAgMSAuMi4wMXEuMTIuMDYuMTEuMjFhLjkuOSAwIDAgMS0uMTEuMzZxLS4zNi42Ni0xLjAzIDEuMDUtLjY2LjM5LTEuMzYuMzktLjU4IDAtLjg2LS4yOXQtLjI4LS44NHEwLS4yMy4wMy0uNTEuMDQtLjI4LjE0LS42OS4xLS40Mi4yOC0xLjAzLjE4LS42Mi40Ni0xLjUxbC4xOC4zMnEtLjU0IDEuNDUtMS4zMSAyLjQ3LS43NyAxLjAxLTEuNjcgMS41NS0uOS41My0xLjg0LjUzLTEuMDUgMC0xLjYzLS43MS0uNTctLjcxLS40Mi0yLjI0LjA5LTEgLjUtMS45Ni40Mi0uOTYgMS4wOS0xLjhhOC4yIDguMiAwIDAgMSAxLjU2LTEuNDggNy4xIDcuMSAwIDAgMSAxLjkxLS45OSA2LjYgNi42IDAgMCAxIDIuMTYtLjM2cS44NCAwIDEuNC4xMnQuODMuMzNxLjI4LjIuMjYuNDZhLjUuNSAwIDAgMS0uMTUuMzNxLS4xMi4xMi0uMjUuMjRhLjY0LjY0IDAgMCAwLS4xOS4zM3ptLTUuNzYtLjIzcS0uMSAxLjA0LjE2IDEuNDYuMjcuNDIuNzYuNDIuNDUgMCAuOTUtLjM1LjUxLS4zNSAxLjAyLS45OWE5LjUgOS41IDAgMCAwIC45Ny0xLjQ3cS40NS0uODQuNzktMS44MXQuNS0ycS4wOS0uNTEtLjA2LS43NC0uMTUtLjI0LS41MS0uMjQtLjYyIDAtMS4yNS4zMmE0LjcgNC43IDAgMCAwLTEuMTguODkgNy40IDcuNCAwIDAgMC0xLjAyIDEuMjkgOCA4IDAgMCAwLS43NiAxLjU2IDcgNyAwIDAgMC0uMzcgMS42Nm0xMS4zNzEuMjNxLS4yOS43OS0uMjEgMS4xMS4wOC4zMS4zNC4zMWEuOC44IDAgMCAwIC4zNi0uMXEuMTktLjExLjQ2LS4zOC4xNzEtLjE1LjI3LS4xOWEuMjMuMjMgMCAwIDEgLjIuMDFxLjEyLjA1LjExLjIgMCAuMTUtLjExLjM3YTIuNzQgMi43NCAwIDAgMS0xLjA0IDEuMDZxLS42Ni4zOS0xLjQ4LjM5LS42MDkgMC0uOTMtLjI4LS4zMS0uMjgtLjMyLS44MS0uMDA5LS41NC4yNy0xLjNsMS42MS00LjM1cS4yOTEtLjc5LjIxLTEuMTEtLjA3LS4zMi0uMzQtLjMyYS43Ni43NiAwIDAgMC0uMzYuMTFxLS4xOS4xLS40Ny4zOGExIDEgMCAwIDEtLjI3LjE4LjI2LjI2IDAgMCAxLS4yIDBxLS4xMS0uMDYtLjExLS4yMS4wMS0uMTUuMTItLjM2LjM3LS42NyAxLjAzLTEuMDYuNjYtLjQgMS40Ni0uNC41NyAwIC44OC4yOC4zMi4yNy4zNS44Mi4wNC41NC0uMjYgMS4zNXptMS4zMy04LjY0cS0uNjMgMC0uOTctLjM0YTEgMSAwIDAgMS0uMjctLjg0cS4wNC0uMzkuMjgtLjcyLjI1LS4zNC42NS0uNTUuNDEtLjIxLjkyLS4yMS42NyAwIC45Ny4zNS4zMS4zNS4yNS44NWExLjUgMS41IDAgMCAxLS4yOS43NHEtLjI0LjMzLS42NC41My0uMzk5LjE5LS45LjE5bTQuODA1IDEwLjdxLjY2IDAgMS4wNy0uMzQuNDItLjM1LjQyLS44OSAwLS4zMS0uMTMtLjU5LS4xMjktLjI5LS40OC0uNjRhOC41IDguNSAwIDAgMC0xLS44NHEtLjcyLS41NC0xLjE0LS45NmEyLjkgMi45IDAgMCAxLS41OS0uODMgMi40IDIuNCAwIDAgMS0uMTctLjkzcS4wMS0uNzYuNDctMS4zOS40Ni0uNjQgMS4zMi0xLjAyLjg2LS4zOSAyLjA2LS4zOS45NCAwIDEuNTguMjYuNjUuMjUuOTguNjguMzQuNDIuMzQuOTIgMCAuMzktLjE4LjYxYS42MS42MSAwIDAgMS0uNDkuMjEuNzguNzggMCAwIDEtLjUxLS4xOHEtLjIyLS4xOS0uNDMtLjY3LS4yNy0uNTYtLjY0LS44NS0uMzctLjMtLjkxLS4zLS43NCAwLTEuMTkuNC0uNDQuMzktLjQ0IDEgMCAuMzEuMTIuNjEuMTMuMy40Ny42Ny4zNS4zNyAxLjAxLjg5Ljc3LjU5IDEuMTggMS4wMy40Mi40My41OC44My4xNi4zOS4xNi44NyAwIC43NC0uNDYgMS4zMnQtMS4zLjkycS0uODQuMzMtMS45OC4zMy0xLjAxIDAtMS43MS0uMjktLjctLjMtMS4wNi0uNzd0LS4zNi0uOTlxMC0uMzYuMTctLjU4LjE4LS4yMi40OC0uMjIuMzIgMCAuNTUuMjEuMjQuMjEuNDYuNjcuMzUxLjY4Ljc4Ljk2LjQ0LjI4Ljk3LjI4bTEwLjkyNS04LjgycTEuMjMuMDMgMi4wOS42dDEuMjMgMS42MXEuMzggMS4wMy4xMiAyLjQ3YTYuNCA2LjQgMCAwIDEtLjcxIDIgNS44IDUuOCAwIDAgMS0xLjI2IDEuNTZxLS43NS42NS0xLjY4IDFhNS4yIDUuMiAwIDAgMS0xLjk2LjMxcS0xLjE5LS4wNC0yLjA1LS42LS44NS0uNTYtMS4yMi0xLjYtLjM2LTEuMDQtLjExLTIuNDguMjEtMS4xLjcxLTIuMDFhNS43IDUuNyAwIDAgMSAxLjI0LTEuNTYgNS40IDUuNCAwIDAgMSAxLjY2LS45OSA0LjkgNC45IDAgMCAxIDEuOTQtLjMxbS0yLjEzIDguNzRxLjQzLjA0Ljg1LS4xMnQuOC0uNXEuMzktLjM1LjcxLS44NS4zMy0uNTEuNTgtMS4xOC4yNi0uNjcuNDItMS40Ny4yNS0xLjI0LjE2LTIuMDYtLjA5LS44My0uNDYtMS4yNi0uMzYtLjQ0LS45Ny0uNDlhMS43IDEuNyAwIDAgMC0uODQuMTEgMi42IDIuNiAwIDAgMC0uNzguNTEgNC40IDQuNCAwIDAgMC0uNy44NXEtLjMyLjUxLS41NyAxLjE4LS4yNS42Ni0uNDEgMS40Ny0uMjUgMS4yNC0uMTcgMi4wNy4wOS44Mi40NSAxLjI1dC45My40OW03LjM4NC02LjdxLS4xMS0uMDYtLjExLS4yMXQuMTItLjM2cS4zNy0uNjcgMS4wNC0xLjA2LjY4LS40IDEuNS0uNC41NCAwIC44NS4yNC4zMi4yNC4zMi43MiAwIC4yOS0uMTIuNjctLjExLjM4LS4zMi45dC0uNTEgMS4yNXEtLjMuNzItLjY2IDEuN2wtLjA0LS40cS41Ny0xLjQzIDEuMjktMi40MXQxLjQ4LTEuNTdxLjc3LS41OSAxLjUtLjg0LjczLS4yNiAxLjMzLS4yNi44MyAwIDEuMTcuMzYuMzUuMzUuMzIgMXQtLjM1IDEuNTZsLTEuMzQgMy44M3EtLjI5LjgtLjIxIDEuMTIuMDguMzEuMzQuMzFhLjcuNyAwIDAgMCAuMzYtLjExcS4xOS0uMTEuNDYtLjM4LjE3LS4xNC4yNy0uMThhLjIzLjIzIDAgMCAxIC4yLjAxcS4xMi4wNS4xMS4yIDAgLjE1LS4xMS4zN2EyLjgzIDIuODMgMCAwIDEtMi41MiAxLjQ1cS0uNjEgMC0uOTItLjI4dC0uMzMtLjgxcS0uMDEtLjU0LjI1LTEuMjlsMS4zOC0zLjk2cS4zNi0uOTkuMjQtMS4zOS0uMTEtLjQtLjY1LS40LS40MSAwLS45NC4yN3QtMS4xLjgxYTcuMiA3LjIgMCAwIDAtMS4wOCAxLjM3IDEwLjMgMTAuMyAwIDAgMC0uOTEgMS45MmwtLjM0Ljk5cS0uMTIuMzgtLjE3LjZ0LS4wNS4zOHEwIC4yNi4wOC40NC4wOC4xNy4wOC40MiAwIC40Mi0uNDYuNjgtLjQ1LjI1LTEuMjIuMjUtLjYyIDAtLjc1LS40Ni0uMTMtLjQ3LjIyLTEuNDNsMS43My00Ljg2cS4yOC0uOC4yMS0xLjExLS4wNy0uMzItLjM1LS4zMmEuNzYuNzYgMCAwIDAtLjM2LjExcS0uMTkuMS0uNDYuMzhhMSAxIDAgMCAxLS4yNy4xOC4yNi4yNiAwIDAgMS0uMiAwIi8+PHBhdGggZmlsbD0iIzJiMjYyMCIgZD0iTTQ4LjU5IDM5LjMxcS0uODIgMC0xLjQxLS4yYTggOCAwIDAgMS0uOTctLjM5cS0uMzctLjItLjU1LS4yYS40NC40NCAwIDAgMC0uMzIuMTNxLS4xMy4xMi0uMjUuMjh0LS4yNS4yOGEuNDUuNDUgMCAwIDEtLjMyLjEyLjQ4LjQ4IDAgMCAxLS4zNC0uMTNxLS4xMy0uMTItLjE4LS40bC0uNjktMy4zcS0uMDMtLjIxLjA2LS4zNmEuNS41IDAgMCAxIC4zLS4yM3EuMjMtLjA4LjQuMDEuMTguMDkuMzEuMzQuNTggMS4xNCAxLjIzIDEuODF0MS4zNS45NnEuNy4yOCAxLjQzLjI4IDEuMDMgMCAxLjYyLS41My41OS0uNTQuNTktMS40NGEyIDIgMCAwIDAtLjI2LTEuMDVxLS4yNy0uNDgtMS4wMi0uOTJ0LTIuMjEtLjkxcS0xLjUyLS41LTIuNDQtMS4xNC0uOTEtLjY0LTEuMzMtMS41LS40MS0uODctLjQxLTIgMC0xLjIxLjU4LTIuMTNhMy45IDMuOSAwIDAgMSAxLjYyLTEuNDNxMS4wNS0uNTIgMi40NC0uNTIuOSAwIDEuNDkuMTkuNTkuMTguOTYuMzcuMzguMTkuNjMuMTlhLjM4LjM4IDAgMCAwIC4zNC0uMTlsLjI3LS4zOXEuMTQtLjIuNDItLjIuMjEgMCAuMzUuMTQuMTUuMTMuMjUuNWwuOTUgMy4zMWEuNjcuNjcgMCAwIDEtLjAyLjQ2LjQ1LjQ1IDAgMCAxLS4zMS4yNy41NC41NCAwIDAgMS0uNDEtLjAyLjczLjczIDAgMCAxLS4yOS0uMzFxLS42My0xLjI1LTEuMzQtMS45Ny0uNy0uNzMtMS40Ni0xLjA0YTMuOCAzLjggMCAwIDAtMS41Mi0uMzJxLTEuMDIgMC0xLjYzLjU5LS42LjU5LS42IDEuNTQgMCAuNTguMjYgMS4wNy4yNy40OSAxIC45Ni43NC40NyAyLjEzLjk4IDEuNTYuNTYgMi40NyAxLjJ0MS4zMSAxLjQ0LjQgMS44NGEzLjggMy44IDAgMCAxLS41NiAxLjk5cS0uNTQuOS0xLjU3IDEuNDQtMS4wMy41My0yLjUuNTNtMTEuNTI4LTkuOTlxMS41NCAwIDIuNy42M2E0LjU0IDQuNTQgMCAwIDEgMS44MiAxLjc2cS42NSAxLjEyLjY1IDIuNiAwIDEuNDEtLjY3IDIuNTNhNC44IDQuOCAwIDAgMS0xLjg2IDEuNzZxLTEuMTguNjUtMi43NC42NS0xLjUzIDAtMi43LS42NGE0LjcgNC43IDAgMCAxLTEuODItMS43NnEtLjY1LTEuMTItLjY1LTIuNTggMC0xLjQzLjY3LTIuNTRhNC43NSA0Ljc1IDAgMCAxIDEuODUtMS43NnExLjE5LS42NSAyLjc1LS42NW0uNyA4LjkxYTEuNjggMS42OCAwIDAgMCAxLjA5LS42M3EuNDItLjUyLjUzLTEuNDQuMTItLjkyLS4xMi0yLjIyLS4yMy0xLjMtLjY3LTIuMTMtLjQzLS44NC0xLjAzLTEuMjEtLjYtLjM4LTEuMy0uMjYtLjY4LjEtMS4xLjYzLS40MS41Mi0uNTIgMS40NC0uMS45Mi4xMyAyLjIyLjIyIDEuMjkuNjYgMi4xM3QxLjAzIDEuMjFxLjYuMzcgMS4zLjI2bTkuODc2LTEzLjQ4djEyLjY4cTAgLjMxLjA4LjQ1LjA5LjE0LjI3LjJsLjM4LjFxLjE5LjA2LjI3LjE3LjA5LjEuMDkuMjUgMCAuMTgtLjEzLjI5LS4xMi4xMS0uNC4xMWgtMy45NHEtLjI4IDAtLjQxLS4xMWEuMzguMzggMCAwIDEtLjEyLS4yOXEwLS4xNS4wOC0uMjVhLjcuNyAwIDAgMSAuMjgtLjE3bC40LS4xcS4xNy0uMDYuMjYtLjJ0LjA5LS40NVYyNi40MXEwLS4yNC0uMDgtLjM1YS4zNy4zNyAwIDAgMC0uMjQtLjE0bC0uNTQtLjA0YS41LjUgMCAwIDEtLjI1LS4xMi4zMy4zMyAwIDAgMS0uMDgtLjIzcTAtLjE2LjA5LS4yNi4xLS4xLjM2LS4ybDEuOS0uNjhhOCA4IDAgMCAxIC42LS4ycS4yMy0uMDYuMzktLjA2LjMzIDAgLjQ5LjE3YS42My42MyAwIDAgMSAuMTYuNDVtMTEuNTY4IDguMzZxMCAuNTItLjMuOC0uMjkuMjgtLjg1LjI4aC02LjI0di0uNzVoNC4wOXEuNDkgMCAuNDktLjQ1IDAtMS4zMy0uNDgtMi4wMnQtMS4yOC0uNjlxLS42MiAwLTEuMS4zOC0uNDcxLjM3LS43NSAxLjA5LS4yNy43MS0uMjcgMS43MSAwIDEuOTQuOTEgMi45MXQyLjQxLjk3cS44OSAwIDEuNTUtLjM2LjY3LS4zNiAxLjAzLTEuMDIuMTctLjE5LjI3LS4yNmEuNC40IDAgMCAxIC4yMi0uMDdxLjE1IDAgLjIyLjE0dC4wNy4zNGEyLjcyIDIuNzIgMCAwIDEtLjYgMS41N3EtLjU2LjcxLTEuNTEgMS4xNC0uOTQuNDMtMi4xNy40My0xLjQ0IDAtMi41NS0uNTlhNC41IDQuNSAwIDAgMS0xLjc1LTEuNjdxLS42My0xLjA3LS42My0yLjUxIDAtMS41MS42LTIuNjcuNjEtMS4xNyAxLjczLTEuODMgMS4xMy0uNjYgMi42OS0uNjYgMS4zMiAwIDIuMjYuNDkuOTUuNDggMS40NCAxLjM0LjUuODUuNSAxLjk2bTUuMzc1LTMuMTJ2Ny40NHEwIC4zMS4wOC40NS4wOS4xNC4yNy4ybC4zOS4xcS4xOS4wNi4yNy4xNy4wOS4xLjA5LjI1IDAgLjE4LS4xMy4yOXQtLjQxLjExaC0zLjk0cS0uMjcgMC0uNC0uMTFhLjM4LjM4IDAgMCAxLS4xMi0uMjlxMC0uMTUuMDgtLjI1YS43LjcgMCAwIDEgLjI3LS4xN2wuNC0uMWEuNDUuNDUgMCAwIDAgLjI2LS4ycS4wOS0uMTQuMDktLjQ1di01Ljc4cTAtLjI1LS4wOC0uMzYtLjA3LS4xMS0uMjQtLjEzbC0uNTMtLjA0YS41LjUgMCAwIDEtLjI2LS4xMy4zNi4zNiAwIDAgMS0uMDctLjIzcTAtLjE2LjA5LS4yNS4xLS4xLjM2LS4ybDEuODktLjY4cS4zOS0uMTUuNjEtLjIuMjItLjA2LjM5LS4wNi4zMiAwIC40OC4xN2EuNjMuNjMgMCAwIDEgLjE2LjQ1bS0xLjYxLTIuMTRxLS44IDAtMS4yOC0uNDEtLjQ4LS40Mi0uNDgtMS4wOXQuNDgtMS4wN3EuNDgtLjQxIDEuMjgtLjQxdDEuMjguNDFxLjQ5LjQxLjQ5IDEuMDcgMCAuNjctLjQ5IDEuMDktLjQ4LjQxLTEuMjguNDFtNy45MS0zLjF2MTIuNjhxMCAuMzEuMDguNDUuMDkuMTQuMjcuMmwuMzguMXEuMTg5LjA2LjI3LjE3LjA5LjEuMDkuMjUgMCAuMTgtLjEzLjI5LS4xMi4xMS0uNC4xMWgtMy45NHEtLjI4MiAwLS40MS0uMTFhLjM4LjM4IDAgMCAxLS4xMi0uMjlxMC0uMTUuMDgtLjI1YS43LjcgMCAwIDEgLjI4LS4xN2wuNC0uMXEuMTY5LS4wNi4yNi0uMi4wOS0uMTQuMDktLjQ1VjI2LjQxcS0uMDAxLS4yNC0uMDgtLjM1YS4zNy4zNyAwIDAgMC0uMjQtLjE0bC0uNTQtLjA0YS41LjUgMCAwIDEtLjI1LS4xMi4zMy4zMyAwIDAgMS0uMDgtLjIzcTAtLjE2LjA5LS4yNi4wOTktLjEuMzYtLjJsMS45LS42OGE4IDggMCAwIDEgLjYtLjJxLjIyOC0uMDYuMzktLjA2LjMyOSAwIC40OS4xN2EuNjMuNjMgMCAwIDEgLjE2LjQ1Ii8+PC9zdmc+" alt="Maison Soleil">
+            <div class="sidebar-rule"></div>
+
+            <nav class="guest-nav" aria-label="Guest navigation">
+              <ul>
+                <li>
+                  <a class="nav-link nav-link--active" href="#your-stay" aria-current="page">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDIwIDIwIj48ZyBzdHJva2U9IiMyYjI2MjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjI1Ij48cGF0aCBkPSJNMTUuNjU2IDEwLjFWNS45ODZjMC0uNTQ2IDAtLjgxOS0uMDc5LTEuMDM4YTEuMzMgMS4zMyAwIDAgMC0uODAzLS44MDNjLS4yMTktLjA3OS0uNDkyLS4wNzktMS4wMzgtLjA3OWgtNy40N2MtLjU0NyAwLS44MiAwLTEuMDM5LjA4YTEuMzMgMS4zMyAwIDAgMC0uODAyLjgwMmMtLjA4LjIxOS0uMDguNDkyLS4wOCAxLjAzOFYxMC4xIi8+PHBhdGggZD0iTTkuMTY3IDEwLjF2LS41YzAtLjM0IDAtLjUxMS0uMDUtLjY0OGEuODMuODMgMCAwIDAtLjUwMS0uNTAyYy0uMTM3LS4wNS0uMzA4LS4wNS0uNjUtLjA1SDcuNDVjLS4zNDEgMC0uNTEyIDAtLjY0OS4wNWEuODMuODMgMCAwIDAtLjUwMi41MDJjLS4wNDkuMTM3LS4wNDkuMzA3LS4wNDkuNjQ5di40OThtNy41LjAwMXYtLjVjMC0uMzQgMC0uNTExLS4wNS0uNjQ4YS44My44MyAwIDAgMC0uNTAxLS41MDJjLS4xMzctLjA1LS4zMDgtLjA1LS42NDktLjA1aC0uNTE3Yy0uMzQxIDAtLjUxMiAwLS42NDkuMDVhLjgzLjgzIDAgMCAwLS41MDEuNTAyYy0uMDUuMTM3LS4wNS4zMDctLjA1LjY0OXYuNDk4Ii8+PHBhdGggZD0iTTE3LjUgMTUuOTMzdi0zLjkxNGMwLS41NDYgMC0uODItLjA3OS0xLjAzOGExLjMzIDEuMzMgMCAwIDAtLjgwMy0uODAzYy0uMjE5LS4wNzktLjQ5Mi0uMDc5LTEuMDM4LS4wNzlINC40MmMtLjU0NiAwLS44MiAwLTEuMDM4LjA4YTEuMzMgMS4zMyAwIDAgMC0uODAzLjgwMmMtLjA3OS4yMTktLjA3OS40OTItLjA3OSAxLjAzOHYzLjkxNG0wLTEuMDMzaDE1Ii8+PC9nPjwvc3ZnPg==" alt="">
+                    <span>Your stay</span>
+                    <span class="nav-badge">1</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#the-house">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDIwIDIwIj48ZyBzdHJva2U9IiMyYjI2MjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjI1Ij48cGF0aCBkPSJNMy43NDggNy4zMTN2Ny4yMjlBMi41NTMgMi41NTMgMCAwIDAgNi4zIDE3LjA5NWg3LjRhMi41NTMgMi41NTMgMCAwIDAgMi41NTItMi41NTN2LTcuMjMiLz48cGF0aCBkPSJtMTcuNSA4LjI5Ny02LjI3Mi00Ljk2NWExLjk4IDEuOTggMCAwIDAtMi40NTYgMEwyLjUgOC4yOTdNMTQuNzIzIDQuMTJ2MS45Nk04LjAzNiAxNy4wOTV2LTMuMDk5YzAtLjY2NyAwLTEgLjEyNC0xLjI1OGExLjI1IDEuMjUgMCAwIDEgLjU4My0uNTgzYy4yNTgtLjEyNC41OTEtLjEyNCAxLjI1OC0uMTI0LjY2OCAwIDEuMDAxIDAgMS4yNTguMTI0LjI1NS4xMjMuNDYuMzI5LjU4My41ODMuMTI0LjI1OC4xMjQuNTkxLjEyNCAxLjI1OHYzLjEiLz48L2c+PC9zdmc+" alt="">
+                    <span>The house</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#around-town">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDIwIDIwIj48ZyBzdHJva2U9IiMyYjI2MjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjIiPjxwYXRoIGQ9Ik0zLjk3OSA5LjAyMmMwIDQuMjg0IDUuMDU3IDguMzc4IDYuMDIgOC4zNzguOTY0IDAgNi4wMjEtNC4wOTQgNi4wMjEtOC4zNzhhNi4wMiA2LjAyIDAgMSAwLTEyLjA0MSAwIi8+PHBhdGggZD0iTTEyLjAwNiA4Ljk3MmEyLjAwNiAyLjAwNiAwIDEgMC00LjAxMyAwIDIuMDA2IDIuMDA2IDAgMCAwIDQuMDEzIDAiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=" alt="">
+                    <span>Around town</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#breakfast">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDIwIDIwIj48ZyBzdHJva2U9IiMyYjI2MjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjI1Ij48cGF0aCBkPSJNMTUuOTggMTcuNDYySDQuMDJjLS42NyAwLTEuMjY1LS40My0xLjQ3Ny0xLjA2NGEuODM1LjgzNSAwIDAgMSAuNzkzLTEuMWgxMy4zMjhjLjU3IDAgLjk3My41NTkuNzkzIDEuMWExLjU2IDEuNTYgMCAwIDEtMS40NzcgMS4wNjQiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjxwYXRoIGQ9Ik0xMS4xMDIgNy44ODh2LS45NDNhMS4xMDMgMS4xMDMgMCAwIDAtMi4yMDQgMHYuOTQzIi8+PHBhdGggZD0ibTMuNTUzIDE1LjI5OS0uMDM0LS42OTFhNi40OSA2LjQ5IDAgMSAxIDEyLjk2MyAwbC0uMDM1LjY5TTE1LjAyIDQuNDYzYS45OTUuOTk1IDAgMCAwIDAgMS40MDltLTExLjk1OCAwYS45OTUuOTk1IDAgMCAxIDAgMS40MDhNNi43OCAyLjUzOGEuOTk2Ljk5NiAwIDAgMSAwIDEuNDA5Ljk5NS45OTUgMCAwIDAgMCAxLjQwOCIvPjwvZz48L3N2Zz4=" alt="">
+                    <span>Breakfast</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link" href="#messages">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDIwIDIwIj48ZyBzdHJva2U9IiMyYjI2MjAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxLjI1Ij48cGF0aCBkPSJNMTcuNSAxMi41NzljMCAyLjMwNC0xLjUzNyA0LjE3Ny0zLjgxOCA0LjE3MUg2LjMxOGMtMi4yOC4wMDYtMy44MTgtMS44NjctMy44MTgtNC4xNzFWNy40MjhjMC0yLjMwMiAxLjUzNy00LjE3OCAzLjgxOC00LjE3OGg3LjM2NGMyLjI4IDAgMy44MTggMS44NzYgMy44MTggNC4xNzh6Ii8+PHBhdGggZD0ibTE3LjE1NiA1LjczMy01LjM5IDQuMzg0YTIuNzkgMi43OSAwIDAgMS0zLjQ3IDBMMi44NTkgNS43MzMiLz48L2c+PC9zdmc+" alt="">
+                    <span>Messages</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="sidebar-bottom">
+            <section class="weather-card" aria-label="Weather in Cassis">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDgwIDgwIj48ZyBmaWx0ZXI9InVybCgjYSkiPjxyZWN0IHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgZmlsbD0idXJsKCNiKSIgcng9IjQwIi8+PC9nPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iYiIgY3g9IjAiIGN5PSIwIiByPSIxIiBncmFkaWVudFRyYW5zZm9ybT0idHJhbnNsYXRlKDMyIDMyKXNjYWxlKDY3Ljg4MjMpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iI2ZmZGU3YSIvPjxzdG9wIG9mZnNldD0iLjciIHN0b3AtY29sb3I9IiNlZGI2M2EiLz48L3JhZGlhbEdyYWRpZW50PjxmaWx0ZXIgaWQ9ImEiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgeD0iMCIgeT0iMCIgY29sb3ItaW50ZXJwb2xhdGlvbi1maWx0ZXJzPSJzUkdCIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQmxlbmQgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9InNoYXBlIi8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImhhcmRBbHBoYSIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIvPjxmZU9mZnNldCBkeD0iLTYiIGR5PSItOCIvPjxmZUNvbXBvc2l0ZSBpbjI9ImhhcmRBbHBoYSIgazI9Ii0xIiBrMz0iMSIgb3BlcmF0b3I9ImFyaXRobWV0aWMiLz48ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMC43NjA3ODQgMCAwIDAgMCAwLjM1Mjk0MSAwIDAgMCAwIDAuMTgwMzkyIDAgMCAwIDAuMTggMCIvPjxmZUJsZW5kIGluMj0ic2hhcGUiIHJlc3VsdD0iZWZmZWN0MV9pbm5lclNoYWRvd184NF8zNTAiLz48L2ZpbHRlcj48L2RlZnM+PC9zdmc+" alt="">
+              <p class="eyebrow">Today in Cassis</p>
+              <p class="temperature">27°</p>
+              <p class="weather-copy">Sunny · light breeze</p>
+            </section>
+
+            <footer class="property-footer">
+              <p>Est. 1987</p>
+              <address>Maison Soleil · 12 Rue des Oliviers · Cassis</address>
+              <p>© 2026 Maison Soleil</p>
+            </footer>
+          </div>
+        </aside>
+      </div>
+
+      <div class="app-content"></div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,433 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DMSans-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+:root {
+  --purple-100: hsl(254, 88%, 90%);
+  --purple-500: hsl(256, 67%, 59%);
+  --yellow-100: hsl(31, 66%, 93%);
+  --yellow-500: hsl(39, 100%, 71%);
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 7%);
+  --page: hsl(0, 0%, 96%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "DM Sans", sans-serif;
+  color: var(--black);
+  background: var(--page);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 5.2rem 1.5rem 4rem;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.bento-grid {
+  width: min(100%, 70rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 20.25rem 3.75rem 9.75rem 15.3125rem;
+  gap: 2rem;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 0.625rem;
+}
+
+.card--create {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  padding: 4.75rem 2rem 2rem;
+  background: var(--yellow-100);
+}
+
+.card--create h2 {
+  font-size: 2.5rem;
+  line-height: 0.9;
+}
+
+.card--create em {
+  color: var(--purple-500);
+}
+
+.card--create img {
+  width: 11.875rem;
+  margin-top: 1.5rem;
+}
+
+.card--hero {
+  grid-column: 2 / 4;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem;
+  color: var(--white);
+  text-align: center;
+  background: var(--purple-500);
+}
+
+.card--hero h1 {
+  font-size: 3.875rem;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+
+.card--hero h1 span {
+  color: var(--yellow-500);
+}
+
+.card--hero h1 em {
+  font-weight: 400;
+}
+
+.card--hero img {
+  width: 12rem;
+  margin-top: 1.45rem;
+}
+
+.card--hero p {
+  margin-top: 0.35rem;
+  font-size: 1.125rem;
+}
+
+.card--schedule {
+  grid-column: 4;
+  grid-row: 1 / 4;
+  padding: 3rem 0 2rem 2rem;
+  background: var(--purple-100);
+}
+
+.card--schedule h2 {
+  max-width: 12rem;
+  font-size: 2rem;
+  line-height: 0.9;
+}
+
+.card--schedule img {
+  width: 22.35rem;
+  max-width: none;
+  margin-top: 1.55rem;
+}
+
+.card--schedule p {
+  max-width: 12.25rem;
+  margin-top: 1.55rem;
+  font-size: 1.125rem;
+  line-height: 1.05;
+}
+
+.card--platforms {
+  grid-column: 2;
+  grid-row: 2 / 4;
+  padding: 0 2rem 1.5rem;
+  background: var(--white);
+}
+
+.card--platforms img {
+  width: 19.75rem;
+  max-width: none;
+  margin: 0.05rem 0 1.2rem;
+}
+
+.card--platforms h2,
+.card--consistent h2 {
+  font-size: 2rem;
+  line-height: 0.9;
+}
+
+.card--consistent {
+  grid-column: 3;
+  grid-row: 2 / 4;
+  padding: 1.5rem 1.5rem 0;
+  background: var(--yellow-500);
+}
+
+.card--consistent img {
+  width: 13rem;
+  margin-top: 1.15rem;
+}
+
+.card--ai {
+  grid-column: 1;
+  grid-row: 3 / 5;
+  padding: 1.5rem;
+  background: var(--yellow-500);
+}
+
+.card--ai h2 {
+  font-size: 2.5rem;
+  line-height: 0.95;
+}
+
+.card--ai img {
+  width: 13.75rem;
+  margin-top: 3.4rem;
+}
+
+.card--audience {
+  grid-column: 2;
+  grid-row: 4;
+  padding: 1.45rem 1.5rem;
+  background: var(--white);
+}
+
+.card--audience h2 {
+  font-size: 3.875rem;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.card--audience p {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+}
+
+.card--audience img {
+  width: 11.25rem;
+  margin-top: 1.75rem;
+}
+
+.card--growth {
+  grid-column: 3 / 5;
+  grid-row: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  color: var(--white);
+  background: var(--purple-500);
+}
+
+.card--growth img {
+  width: 14.25rem;
+  flex: 0 0 14.25rem;
+}
+
+.card--growth h2 {
+  font-size: 2.5rem;
+  line-height: 0.95;
+}
+
+@media (max-width: 64rem) {
+  .bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+  }
+
+  .card {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .card--hero,
+  .card--schedule,
+  .card--growth {
+    grid-column: 1 / -1;
+  }
+
+  .card--create,
+  .card--ai {
+    min-height: 25rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  body {
+    display: block;
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  .bento-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .card {
+    width: 100%;
+    border-radius: 0.625rem;
+  }
+
+  .card--hero {
+    order: 1;
+    min-height: 14.25rem;
+    padding: 2.3rem 1.5rem;
+  }
+
+  .card--hero h1 {
+    font-size: 2.875rem;
+    line-height: 0.92;
+  }
+
+  .card--hero img {
+    width: 11.875rem;
+    margin-top: 1.35rem;
+  }
+
+  .card--hero p {
+    font-size: 1.125rem;
+  }
+
+  .card--platforms {
+    order: 2;
+    min-height: 10.125rem;
+    padding: 1rem;
+  }
+
+  .card--platforms img {
+    width: 100%;
+    margin: 0 0 1rem;
+  }
+
+  .card--platforms h2,
+  .card--consistent h2 {
+    font-size: 1.75rem;
+    line-height: 0.95;
+  }
+
+  .card--consistent {
+    order: 3;
+    min-height: 13.5rem;
+    padding: 1rem 1rem 0;
+  }
+
+  .card--consistent img {
+    width: 13rem;
+    margin-top: 1rem;
+  }
+
+  .card--schedule {
+    order: 4;
+    min-height: 29.25rem;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .card--schedule h2 {
+    max-width: none;
+    font-size: 1.75rem;
+  }
+
+  .card--schedule img {
+    width: 100%;
+    max-width: 22rem;
+    margin: 1.5rem auto 0;
+  }
+
+  .card--schedule p {
+    max-width: 18rem;
+    margin: 1.5rem auto 0;
+    font-size: 1.125rem;
+  }
+
+  .card--growth {
+    order: 5;
+    min-height: 22.5rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.1rem;
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+  }
+
+  .card--growth img {
+    width: 14.25rem;
+    flex-basis: auto;
+  }
+
+  .card--growth h2 {
+    font-size: 2rem;
+  }
+
+  .card--audience {
+    order: 6;
+    min-height: 13.5rem;
+    padding: 1.5rem;
+  }
+
+  .card--audience h2 {
+    font-size: 3.5rem;
+  }
+
+  .card--audience p {
+    margin-top: 0.75rem;
+  }
+
+  .card--audience img {
+    width: 11.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .card--create {
+    order: 7;
+    min-height: 14.625rem;
+    padding: 2rem;
+  }
+
+  .card--create h2 {
+    font-size: 2rem;
+    line-height: 0.95;
+  }
+
+  .card--create img {
+    width: 11.875rem;
+    margin-top: 1.5rem;
+  }
+
+  .card--ai {
+    order: 8;
+    min-height: 22rem;
+    padding: 1.5rem;
+  }
+
+  .card--ai h2 {
+    font-size: 2rem;
+  }
+
+  .card--ai img {
+    width: 13.75rem;
+    margin-top: 1.5rem;
+  }
+}
